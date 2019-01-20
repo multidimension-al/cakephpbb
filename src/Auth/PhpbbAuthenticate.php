@@ -31,4 +31,20 @@ use Cake\Http\ServerRequest;
 class PhpbbAuthenticate extends BaseAuthenticate
 {
 
+    public function __construct(ComponentRegistry $registry, $config)
+    {
+        parent::__construct($registry, $config);
+    }
+ 
+    public function authenticate(ServerRequest $request, Response $response)
+    {
+        return $this->getUser($request);
+    }
+ 
+    public function getUser(ServerRequest $request)
+    {
+      
+        return $user;
+    }
+ 
 }
