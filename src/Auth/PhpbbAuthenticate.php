@@ -52,10 +52,25 @@ use Cake\Http\ServerRequest;
 
 class PhpbbAuthenticate extends BaseAuthenticate
 {
+    
+    private $phpbbuser;
+    private $phpbbauth;
+    private $phpbb_root_path;
+    private $phpbb_absolute_path;
+    
+    define('IN_PHPBB', true);
 
     public function __construct(ComponentRegistry $registry, $config)
     {
         parent::__construct($registry, $config);
+     
+        $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
+        $phpEx = substr(strrchr(__FILE__, '.'), 1);
+        include($this->phpbb_root_path . 'common.' . $phpEx);
+
+        $this->phpbbuser->session_begin();
+        $this->phpbbauth->acl($this->phpbbuser->data);
+        $this->phpbbuser->setup();
     }
  
     public function authenticate(ServerRequest $request, Response $response)
@@ -65,8 +80,15 @@ class PhpbbAuthenticate extends BaseAuthenticate
  
     public function getUser(ServerRequest $request)
     {
-      
-        return $user;
+        if($this->phpbbuser['is_registered']){
+            return ['id' => $this->phpbbuser['user_id'], 'username' => $this->phpbbuser['username'], 'email' => $this->phpbbuser['user_email']];   
+        }else{
+            return false;   
+        }
+    }
+    
+    public function logout($user) {
+        return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=logout&sid=' . $this->phpbbuser['session_id']);
     }
  
 }
