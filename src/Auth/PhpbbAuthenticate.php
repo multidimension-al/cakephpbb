@@ -28,6 +28,28 @@ use Cake\Http\Exception\UnauthorizedException;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 
+/*
+* Standard phpBB Session Includes
+*
+* define('IN_PHPBB', true);
+* $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
+* $phpEx = substr(strrchr(__FILE__, '.'), 1);
+* include($phpbb_root_path . 'common.' . $phpEx);
+* 
+* // Start session management
+* $user->session_begin();
+* $auth->acl($user->data);
+* $user->setup();
+* 
+* Logged In? $user->data['is_registered']
+* Username: $user->data['username']
+* Email: $user->data['user_email']
+*
+* phpBB Tutorials:
+* https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-sessions-integration/
+* https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-cross-site-sessions-integration/
+*/
+
 class PhpbbAuthenticate extends BaseAuthenticate
 {
 
