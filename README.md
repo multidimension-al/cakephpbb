@@ -59,8 +59,6 @@ public function initialize()
     The MIT License (MIT)
 
     Copyright (c) 2016 multidimension.al
-    Copyright (c) 2012 Collin McDonald 
-    Copyright (c) 2011 Sandeep Shetty
 	
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
