@@ -26,6 +26,8 @@
 /*/
 
 return [
-    'Multidimensional/Cakephpbb' =>
-        ['PHPBB_ROOT_PATH' => '/home/username/www/phpBB3/']
+    'Multidimensional/Cakephpbb' => [
+        'PHPBB_ROOT_PATH' => '/home/username/www/phpBB3/',
+        'PHPBB_ABSOLUTE_PATH' => '//www.domain.com/phpBB3/'
+        ]
     ];
