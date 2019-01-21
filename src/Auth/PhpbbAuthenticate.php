@@ -36,6 +36,11 @@ class PhpbbAuthenticate extends BaseAuthenticate
     private $phpbb_root_path;
     private $phpbb_absolute_path;
 
+    /**
+     * @param registry $registry
+     * @param array    $config
+     * @return void
+     */
     public function __construct(ComponentRegistry $registry, $config)
     {
         parent::__construct($registry, $config);
@@ -44,23 +49,44 @@ class PhpbbAuthenticate extends BaseAuthenticate
  
         define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
-        $phpbb_root_path = $this->phpbb_root_path;
+		$this->phpbb_absolute_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH');
+		$phpbb_root_path = $this->phpbb_root_path;
         $phpEx = substr(strrchr(__FILE__, '.'), 1);
         include($this->phpbb_root_path . 'common.' . $phpEx);
 
         $user->session_begin();
         $auth->acl($user->data);
         $user->setup();
+        
         $this->user = $user;
         $this->auth = $auth;
 		
     }
  
+    /**
+     * @param Request  $request
+     * @param Response $response
+     * @return array
+     */
     public function authenticate(ServerRequest $request, Response $response)
     {
         return $this->getUser($request);
     }
+	
+	/**
+     * @param Request  $request
+     * @param Response $response
+     * @return null|Response
+     */
+    public function unauthenticated(Request $request, Response $response)
+    {
+		return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=login&redirect=' . urlencode($request->host().$request->getRequestTarget()));
+	}
  
+     /**
+     * @param Request $request
+     * @return array|bool
+     */
     public function getUser(ServerRequest $request)
     {
         if($this->user->data['is_registered']){
@@ -70,7 +96,12 @@ class PhpbbAuthenticate extends BaseAuthenticate
         }
     }
     
-    public function logout($user) {
+	 /**
+     * @param Event $event
+     * @param array $user
+     * @return void
+     */
+    public function logout(Event $event, $user) {
         return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=logout&sid=' . $this->user->data['session_id']);
     }
  
