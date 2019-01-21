@@ -1,8 +1,12 @@
 # CakePHP Plugin for phpBB Authentication
 
-[![Latest Stable Version](https://poser.pugx.org/multidimensional/cakephpbb/v/stable.svg)](https://packagist.org/packages/multidimensional/cakephpbb)[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.5-8892BF.svg)](https://php.net/)
+[![Build Status](https://api.travis-ci.org/multidimension-al/cakephpbb.svg)](https://travis-ci.org/multidimension-al/cakephpbb)
+[![Latest Stable Version](https://poser.pugx.org/multidimensional/cakephpbb/v/stable.svg)](https://packagist.org/packages/multidimensional/cakephpbb)
+[![Code Coverage](https://scrutinizer-ci.com/g/multidimension-al/cakephpbb/badges/coverage.png)](https://scrutinizer-ci.com/g/multidimension-al/cakephpbb/)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.5-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/multidimensional/cakephpbb/license.svg)](https://packagist.org/packages/multidimensional/cakephpbb)
 [![Total Downloads](https://poser.pugx.org/multidimensional/cakephpbb/d/total.svg)](https://packagist.org/packages/multidimensional/cakephpbb)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/multidimension-al/cakephpbb/badges/quality-score.png)](https://scrutinizer-ci.com/g/multidimension-al/cakephpbb/)
 
 A CakePHP plugin that uses phpBB to authenticate.
 
