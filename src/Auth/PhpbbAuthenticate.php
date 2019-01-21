@@ -28,33 +28,11 @@ use Cake\Http\Exception\UnauthorizedException;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 
-/*
-* Standard phpBB Session Includes
-*
-* define('IN_PHPBB', true);
-* $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
-* $phpEx = substr(strrchr(__FILE__, '.'), 1);
-* include($phpbb_root_path . 'common.' . $phpEx);
-* 
-* // Start session management
-* $user->session_begin();
-* $auth->acl($user->data);
-* $user->setup();
-* 
-* Logged In? $user->data['is_registered']
-* Username: $user->data['username']
-* Email: $user->data['user_email']
-*
-* phpBB Tutorials:
-* https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-sessions-integration/
-* https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-cross-site-sessions-integration/
-*/
-
 class PhpbbAuthenticate extends BaseAuthenticate
 {
     
-    private $phpbbuser;
-    private $phpbbauth;
+    private $user;
+    private $auth;
     private $phpbb_root_path;
     private $phpbb_absolute_path;
 
@@ -62,14 +40,21 @@ class PhpbbAuthenticate extends BaseAuthenticate
     {
         parent::__construct($registry, $config);
  
+        global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $config, $template, $table_prefix, $phpbb_dispatcher;
+ 
         define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
+		      $phpbb_root_path = $this->phpbb_root_path;
         $phpEx = substr(strrchr(__FILE__, '.'), 1);
         include($this->phpbb_root_path . 'common.' . $phpEx);
 
-        $this->phpbbuser->session_begin();
-        $this->phpbbauth->acl($this->phpbbuser->data);
-        $this->phpbbuser->setup();
+        $user->session_begin();
+        $auth->acl($user->data);
+        $user->setup();
+		
+		      $this->user = $user;
+      		$this->auth = $auth;
+		
     }
  
     public function authenticate(ServerRequest $request, Response $response)
@@ -79,15 +64,15 @@ class PhpbbAuthenticate extends BaseAuthenticate
  
     public function getUser(ServerRequest $request)
     {
-        if($this->phpbbuser['is_registered']){
-            return ['id' => $this->phpbbuser['user_id'], 'username' => $this->phpbbuser['username'], 'email' => $this->phpbbuser['user_email']];   
+        if($this->user->data['is_registered']){
+            return ['id' => $this->user->data['user_id'], 'username' => $this->user->data['username'], 'email' => $this->user->data['user_email']];   
         }else{
             return false;   
         }
     }
     
     public function logout($user) {
-        return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=logout&sid=' . $this->phpbbuser['session_id']);
+        return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=logout&sid=' . $this->user->data['session_id']);
     }
  
 }
