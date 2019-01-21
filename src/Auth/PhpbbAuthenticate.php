@@ -57,13 +57,12 @@ class PhpbbAuthenticate extends BaseAuthenticate
     private $phpbbauth;
     private $phpbb_root_path;
     private $phpbb_absolute_path;
-    
-    define('IN_PHPBB', true);
 
     public function __construct(ComponentRegistry $registry, $config)
     {
         parent::__construct($registry, $config);
-     
+ 
+        define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
         $phpEx = substr(strrchr(__FILE__, '.'), 1);
         include($this->phpbb_root_path . 'common.' . $phpEx);
