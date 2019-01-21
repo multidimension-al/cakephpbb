@@ -42,7 +42,19 @@ Plugin::load('Multidimensional/Cakephpbb', ['bootstrap' => true]);
 
 ## Configuration
 
+Run the installation script command in termainal:
 
+```php
+bin/cake CakephpInstall
+```
+
+If the above command doesn't work, you can also try:
+
+```php
+bin/cake multidimensional/cakephpbb.cakephp_install
+```
+
+If you do not have access to terminal, you can manually copy and edit the phpbb.php config file and move it into your default config folder.
 
 ## Usage
 
