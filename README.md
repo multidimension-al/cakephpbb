@@ -50,7 +50,7 @@ public function initialize()
 {
     parent::initialize();
     $this->loadComponent('Auth', [
-        'authenticate' => ['Multidimensional/Cakephpbb.PhpbbAuth']]);
+        'authenticate' => ['Multidimensional/Cakephpbb.Phpbb']]);
 }
 ```
 
