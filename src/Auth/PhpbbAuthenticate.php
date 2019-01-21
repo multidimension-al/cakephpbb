@@ -44,16 +44,15 @@ class PhpbbAuthenticate extends BaseAuthenticate
  
         define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
-		      $phpbb_root_path = $this->phpbb_root_path;
+        $phpbb_root_path = $this->phpbb_root_path;
         $phpEx = substr(strrchr(__FILE__, '.'), 1);
         include($this->phpbb_root_path . 'common.' . $phpEx);
 
         $user->session_begin();
         $auth->acl($user->data);
         $user->setup();
-		
-		      $this->user = $user;
-      		$this->auth = $auth;
+        $this->user = $user;
+        $this->auth = $auth;
 		
     }
  
