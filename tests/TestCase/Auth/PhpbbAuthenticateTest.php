@@ -18,12 +18,31 @@
  *  @link       https://github.com/multidimension-al/cakephpbb Github
  *  @license    http://www.opensource.org/licenses/mit-license.php MIT License
  */
- 
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
 
-if (file_exists(CONFIG . 'phpbb.php')) {
-    Configure::load('phpbb');
-} else {
-    Configure::write('Multidimensional/Cakephpbb', NULL);
+namespace Multidimensional\Cakephpbb\Test\TestCase\Auth;
+
+use Cake\TestSuite\TestCase;
+
+class PhpbbAuthenticateTest extends TestCase
+{
+    public function setUp()
+    {
+        parent::setUp();
+    }
+    public function testAuthenticate()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+    public function testUnauthenticated()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+    public function testGetUser()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+    public function testLogout()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

@@ -20,12 +20,12 @@
   -->
 
 <phpunit
-    colors="true"
-    processIsolation="false"
-    stopOnFailure="false"
-    syntaxCheck="false"
-    bootstrap="./vendor/multidimensional/cakephpbb/tests/bootstrap.php"
-    >
+        colors="true"
+        processIsolation="false"
+        stopOnFailure="false"
+        syntaxCheck="false"
+        bootstrap="./vendor/multidimensional/cakephpbb/tests/bootstrap.php"
+>
     <php>
         <ini name="memory_limit" value="-1"/>
         <ini name="apc.enable_cli" value="1"/>
@@ -33,26 +33,25 @@
 
     <!-- Add any additional test suites you want to run here -->
     <testsuites>
-        <testsuite name="App Test Suite">
-            <directory>./tests/TestCase</directory>
-        </testsuite>
         <!-- Add plugin test suites here. -->
         <testsuite name="Cakephpbb Tests">
             <directory>./vendor/multidimensional/cakephpbb/tests/TestCase</directory>
         </testsuite>
     </testsuites>
-    
+
     <!-- Setup a listener for fixtures -->
+    <!--
     <listeners>
         <listener
-        class="\Cake\TestSuite\Fixture\FixtureInjector"
-        file="./vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php">
+                class="\Cake\TestSuite\Fixture\FixtureInjector"
+                file="./vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php">
             <arguments>
                 <object class="\Cake\TestSuite\Fixture\FixtureManager" />
             </arguments>
         </listener>
     </listeners>
-    
+    -->
+
     <!-- Add a filter to make sure we don't count vendors and Tests in the coverage report -->
     <filter>
         <whitelist>
