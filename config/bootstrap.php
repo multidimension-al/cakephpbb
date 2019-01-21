@@ -20,10 +20,9 @@
  */
  
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 
 if (file_exists(CONFIG . 'phpbb.php')) {
     Configure::load('phpbb');
 } else {
-    Configure::write('Multidimensional/Cakephpbb', NULL);
+    Configure::write('Multidimensional/Cakephpbb', null);
 }

@@ -18,19 +18,18 @@
  *  @link       https://github.com/multidimension-al/cakephpbb Github
  *  @license    http://www.opensource.org/licenses/mit-license.php MIT License
  */
- 
+
 namespace Multidimensional\Cakephpbb\Auth;
 
 use Cake\Auth\BaseAuthenticate;
 use Cake\Controller\ComponentRegistry;
 use Cake\Core\Configure;
-use Cake\Http\Exception\UnauthorizedException;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 
 class PhpbbAuthenticate extends BaseAuthenticate
 {
-    
+
     private $user;
     private $auth;
     private $phpbb_root_path;
@@ -44,25 +43,24 @@ class PhpbbAuthenticate extends BaseAuthenticate
     public function __construct(ComponentRegistry $registry, $config)
     {
         parent::__construct($registry, $config);
- 
+
         global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $config, $template, $table_prefix, $phpbb_dispatcher;
- 
+
         define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
-		$this->phpbb_absolute_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH');
-		$phpbb_root_path = $this->phpbb_root_path;
+        $this->phpbb_absolute_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH');
+        $phpbb_root_path = $this->phpbb_root_path;
         $phpEx = substr(strrchr(__FILE__, '.'), 1);
         include($this->phpbb_root_path . 'common.' . $phpEx);
 
         $user->session_begin();
         $auth->acl($user->data);
         $user->setup();
-        
+
         $this->user = $user;
         $this->auth = $auth;
-		
     }
- 
+
     /**
      * @param Request  $request
      * @param Response $response
@@ -72,37 +70,37 @@ class PhpbbAuthenticate extends BaseAuthenticate
     {
         return $this->getUser($request);
     }
-	
-	/**
+
+    /**
      * @param Request  $request
      * @param Response $response
      * @return null|Response
      */
     public function unauthenticated(Request $request, Response $response)
     {
-		return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=login&redirect=' . urlencode($request->host().$request->getRequestTarget()));
-	}
- 
-     /**
+        return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=login&redirect=' . urlencode($request->host().$request->getRequestTarget()));
+    }
+
+    /**
      * @param Request $request
      * @return array|bool
      */
     public function getUser(ServerRequest $request)
     {
-        if($this->user->data['is_registered']){
-            return ['id' => $this->user->data['user_id'], 'username' => $this->user->data['username'], 'email' => $this->user->data['user_email']];   
-        }else{
-            return false;   
+        if ($this->user->data['is_registered']) {
+            return ['id' => $this->user->data['user_id'], 'username' => $this->user->data['username'], 'email' => $this->user->data['user_email']];
+        } else {
+            return false;
         }
     }
-    
-	 /**
+
+    /**
      * @param Event $event
      * @param array $user
      * @return void
      */
-    public function logout(Event $event, $user) {
+    public function logout(Event $event, $user)
+    {
         return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=logout&sid=' . $this->user->data['session_id']);
     }
- 
 }

@@ -46,8 +46,8 @@ class CakephpInstallShell extends Shell
             $this->out('Please enter the path to your phpBB installation from your root directory.');
             $this->out('Ex: /home/username/www/phpBB/ (include end slash)', 2);
 
-            if(Configure::check('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH')){
-                $this->out('Current setting: ' . Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH'));
+            if (Configure::check('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH')) {
+                $this->out('Current setting: ' . Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH'), 2);
             }
 
             Configure::write('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH', $this->in('phpBB Path:'));
@@ -55,8 +55,8 @@ class CakephpInstallShell extends Shell
             $this->out('Please enter the URL to your phpBB installation.');
             $this->out('Ex: //www.domain.com/phpBB/ (include end slash)', 2);
 
-            if(Configure::check('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH')){
-                $this->out('Current setting: ' . Configure::read('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH'));
+            if (Configure::check('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH')) {
+                $this->out('Current setting: ' . Configure::read('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH'), 2);
             }
 
             Configure::write('Multidimensional/Cakephpbb.PHPBB_ABSOLUTE_PATH', $this->in('phpBB URL:'));
@@ -66,6 +66,5 @@ class CakephpInstallShell extends Shell
         }
 
         $this->out('');
-
     }
 }
