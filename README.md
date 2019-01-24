@@ -14,7 +14,6 @@ A CakePHP plugin that uses phpBB to authenticate.
 
 * CakePHP 3.3+
 * PHP 5.5.9+
-* Database Connection
 
 ## Installation
 
