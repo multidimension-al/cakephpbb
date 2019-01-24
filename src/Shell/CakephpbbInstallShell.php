@@ -24,7 +24,7 @@ namespace Multidimensional\Cakephpbb\Shell;
 use Cake\Console\Shell;
 use Cake\Core\Configure;
 
-class CakephpInstallShell extends Shell
+class CakephpbbInstallShell extends Shell
 {
 
     /**
