@@ -88,7 +88,12 @@ class PhpbbAuthenticate extends BaseAuthenticate
     public function getUser(ServerRequest $request)
     {
         if ($this->user->data['is_registered']) {
-            return ['id' => $this->user->data['user_id'], 'username' => $this->user->data['username'], 'email' => $this->user->data['user_email']];
+            return [
+                'id' => $this->user->data['user_id'],
+                'username' => $this->user->data['username'],
+                'email' => $this->user->data['user_email'],
+                'user_type' => $this->user->data['user_type']
+            ];
         } else {
             return false;
         }
