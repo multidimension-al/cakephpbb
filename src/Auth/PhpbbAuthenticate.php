@@ -72,11 +72,11 @@ class PhpbbAuthenticate extends BaseAuthenticate
     }
 
     /**
-     * @param Request  $request
+     * @param ServerRequest  $request
      * @param Response $response
      * @return null|Response
      */
-    public function unauthenticated(Request $request, Response $response)
+    public function unauthenticated(ServerRequest $request, Response $response)
     {
         return $this->redirect($this->phpbb_absolute_path . 'ucp.php?mode=login&redirect=' . urlencode($request->host().$request->getRequestTarget()));
     }
