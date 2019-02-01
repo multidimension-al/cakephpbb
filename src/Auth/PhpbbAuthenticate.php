@@ -43,7 +43,7 @@ class PhpbbAuthenticate extends BaseAuthenticate
     {
         parent::__construct($registry, $config);
 
-        global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $request;
+        global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $request, $cache, $db, $config, $template, $table_prefix, $phpbb_dispatcher;
 
         define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
