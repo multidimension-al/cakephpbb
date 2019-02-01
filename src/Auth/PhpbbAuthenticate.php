@@ -14,9 +14,9 @@
  *  For full copyright and license information, please see the LICENSE file
  *  Redistributions of files must retain the above copyright notice.
  *
- *  @copyright  Copyright © 2019 Multidimension.al (http://multidimension.al)
- *  @link       https://github.com/multidimension-al/cakephpbb Github
- *  @license    http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright  Copyright © 2019 Multidimension.al (http://multidimension.al)
+ * @link       https://github.com/multidimension-al/cakephpbb Github
+ * @license    http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace Multidimensional\Cakephpbb\Auth;
@@ -31,20 +31,19 @@ class PhpbbAuthenticate extends BaseAuthenticate
 {
 
     private $user;
-    private $auth;
     private $phpbb_root_path;
     private $phpbb_absolute_path;
 
     /**
      * @param registry $registry
-     * @param array    $config
+     * @param array $config
      * @return void
      */
     public function __construct(ComponentRegistry $registry, $config)
     {
         parent::__construct($registry, $config);
 
-        global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $config, $template, $table_prefix, $phpbb_dispatcher;
+        global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $request;
 
         define('IN_PHPBB', true);
         $this->phpbb_root_path = Configure::read('Multidimensional/Cakephpbb.PHPBB_ROOT_PATH');
@@ -56,13 +55,13 @@ class PhpbbAuthenticate extends BaseAuthenticate
         $user->session_begin();
         $auth->acl($user->data);
         $user->setup();
+        $request->enable_super_globals();
 
         $this->user = $user;
-        $this->auth = $auth;
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param Response $response
      * @return array
      */
@@ -71,32 +70,27 @@ class PhpbbAuthenticate extends BaseAuthenticate
         return $this->getUser($request);
     }
 
-	/**
-     * @param Request  $request
+    /**
+     * @param Request $request
+     * @return array|false
+     */
+    public function getUser(ServerRequest $request)
+    {
+        if ($this->user->data['is_registered']) {
+            return $this->user->data;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param Request $request
      * @param Response $response
      * @return Response
      */
     public function unauthenticated(ServerRequest $request, Response $response)
     {
-		return $response->header('Location', $this->phpbb_absolute_path . 'ucp.php?mode=login&redirect=' . urlencode($request->scheme().'://'.$request->host().$request->getRequestTarget()));
-	}
-
-    /**
-     * @param Request $request
-     * @return array|bool
-     */
-    public function getUser(ServerRequest $request)
-    {
-        if ($this->user->data['is_registered']) {
-            return [
-                'id' => $this->user->data['user_id'],
-                'username' => $this->user->data['username'],
-                'email' => $this->user->data['user_email'],
-                'user_type' => $this->user->data['user_type']
-            ];
-        } else {
-            return false;
-        }
+        return $response->header('Location', $this->phpbb_absolute_path . 'ucp.php?mode=login&redirect=' . urlencode($request->scheme() . '://' . $request->host() . $request->getRequestTarget()));
     }
 
     /**
